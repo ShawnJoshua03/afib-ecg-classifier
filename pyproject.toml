@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "afib-ecg-classifier"
+version = "0.1.0"
+description = "Reproducible PhysioNet/CinC 2017 ECG classification"
+requires-python = ">=3.11"
+dependencies = ["numpy", "scipy", "scikit-learn", "pandas", "matplotlib", "joblib"]
+
+[tool.setuptools.packages.find]
+include = ["afib*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
