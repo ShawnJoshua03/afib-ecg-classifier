@@ -87,6 +87,20 @@ Times are UTC. The five-hour window begins 2026-10-19 05:01; deadline 10:01.
 
 ## Reporting rules
 
+## Handoff task G — release review (2026-10-19)
+
+- Reviewed the original two release commits by hand; `/security-review` was not
+  available. The prior HTTP 429 automatic review was not represented as passing.
+- Tracked-file secret patterns found no matches; data, virtualenv, and npm install
+  directories are untracked. Source/artifact hashes and embedded model metadata
+  match. Shawn chose to keep the released model in Git.
+- Repository description, six topics, and homepage were verified through GitHub.
+- Dependency audit found seven high-severity entries sharing an unpatched braces
+  advisory in the shadcn CLI dependency chain. No automatic major downgrade was
+  applied. Full scope, model digest, and remaining risks: `docs/RELEASE_REVIEW.md`.
+
+## Reporting rules (continued)
+
 Record measured scores only after computation. Do not rewrite the model after viewing
 test scores. Any correction affecting evaluation must be logged explicitly.
 Curated demo mistakes are selected after evaluation solely for inspection, never tuning.
