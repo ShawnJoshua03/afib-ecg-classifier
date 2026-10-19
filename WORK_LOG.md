@@ -29,6 +29,14 @@ Times are UTC. The five-hour window begins 2026-10-19 05:01; deadline 10:01.
   floating-point boundary bug and strengthened header metadata validation before fitting.
   Luna implemented synthetic loading/feature/peak tests; 23 tests pass.
 
+## Handoff task C — local pytest directories (2026-10-19)
+
+- The nine data-loading/split cases already used pytest's built-in `tmp_path`.
+  Removed the fixed `--basetemp=.pytest-tmp` setting from `pyproject.toml`.
+- Deleted the stale `.pytest-tmp`, `.pytest-data-tmp`, and `.pytest_cache` directories.
+  The sandbox also denied access to Windows' normal pytest temp directory; running
+  with normal user access passed all 23 tests. No fixtures or assertions were weakened.
+
 ## Reporting rules
 
 Record measured scores only after computation. Do not rewrite the model after viewing
