@@ -5,6 +5,7 @@ import hashlib
 import json
 import platform
 import warnings
+from collections import Counter
 from importlib.metadata import version
 from pathlib import Path
 
@@ -57,7 +58,7 @@ def feature_matrix(paths, audit, cache_dir):
             cache_path,
             record_ids=np.asarray(ids),
             values=frame.to_numpy(),
-            names=np.asarray(frame.columns),
+            names=np.asarray(list(frame.columns), dtype=str),
         )
     if np.isinf(frame.to_numpy()).any():
         raise ValueError("Infinite feature value")
@@ -132,6 +133,9 @@ def prepare(raw_dir, output_dir):
             **split,
             "test_ids": [key for key in split["test_ids"] if key not in excluded],
             "excluded_duplicate_test_ids": excluded,
+            "test_class_counts": dict(
+                Counter(labels[key] for key in split["test_ids"] if key not in excluded)
+            ),
         }
         write_json(output_dir / "split_final.json", split)
     features, identity = feature_matrix(paths, audit, Path(raw_dir).parent / "processed")

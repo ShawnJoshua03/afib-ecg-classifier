@@ -1,3 +1,4 @@
+import ConfusionChart from "./ConfusionChart"
 import { useEffect, useMemo, useState } from "react"
 import { Grid } from "@/components/charts/grid"
 import { Line } from "@/components/charts/line"
@@ -113,6 +114,7 @@ export default function App() {
       <p className="text-xs text-muted-foreground">
         Probabilities are uncalibrated model outputs, not clinical certainty.
       </p>
+      <ConfusionChart />
       <a className="underline" href="https://github.com/ShawnJoshua03/afib-ecg-classifier">Source and methods</a>
     </main>
   )
