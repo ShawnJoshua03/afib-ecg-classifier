@@ -1,4 +1,4 @@
-"""Build docs/demo_data.json: ~30 held-out recordings incl. errors (curated, not an evaluation)."""
+"""Build demo/public/demo_data.json: curated held-out records incl. errors (not an evaluation)."""
 
 import json
 from pathlib import Path
@@ -15,7 +15,7 @@ QUOTA = {"N": (5, 2), "A": (5, 2), "O": (4, 4), "~": (3, 3)}
 MAX_SECONDS = 12
 
 
-def main(raw_dir=Path("data/raw/training2017"), out=Path("docs/demo_data.json")):
+def main(raw_dir=Path("data/raw/training2017"), out=Path("demo/public/demo_data.json")):
     pred = pd.read_csv("artifacts/test_predictions.csv")
     rng = np.random.default_rng(SEED)
     chosen = []

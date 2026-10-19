@@ -64,7 +64,8 @@ Design and evaluation rules were frozen before fitting: [SPEC.md](SPEC.md). Buil
 python -m venv .venv && .venv/Scripts/activate   # Python 3.13
 pip install -r requirements.txt
 python -m afib.train        # downloads data (~99 MB), audits, trains, writes artifacts/
-python -m afib.demo_data    # builds docs/demo_data.json
+python -m afib.demo_data    # builds demo/public/demo_data.json
+(cd demo && npm ci && npm run build)   # React + Bklit UI demo
 pytest
 ```
 
