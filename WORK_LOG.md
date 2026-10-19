@@ -113,6 +113,20 @@ Times are UTC. The five-hour window begins 2026-10-19 05:01; deadline 10:01.
 - Final local gates: 23 tests pass, Ruff passes, demo builds. Screenshot/browser
   verification covered 112 combinations. Frozen model/evaluation source is unchanged.
 
+## Handoff task H — release verification and summary (2026-10-19)
+
+- Pushed release commit `63dfa15` after local pytest/Ruff/build/browser gates.
+  GitHub Actions run `39262359376` passed both checks and Pages deployment.
+  Its annotations contained the hosted Ubuntu image-migration notice, with no
+  Node 20 action-runtime deprecation warning.
+- The live URL returned HTTP 200. Headless Edge at 390 px verified all 28 options,
+  a model-error banner, dark-mode toggle, no overflow/page errors, and the published
+  upstream license asset. Sandbox network denial required normal network access;
+  the successful check used the actual public URL.
+- `docs/HANDOFF_SUMMARY.md` records results, changes, the omitted optional chart,
+  and remaining metadata/dependency/clinical limitations. No training/evaluation
+  source, frozen artifact, or test assertion changed in the final release diff.
+
 ## Reporting rules
 
 Record measured scores only after computation. Do not rewrite the model after viewing
