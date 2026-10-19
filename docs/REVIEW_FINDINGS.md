@@ -12,12 +12,12 @@ not edited to conceal discrepancies.
    contain N=1014 and 1705 total. Training IDs and evaluated IDs are disjoint.
    Reported rather than corrected because changing a frozen numeric artifact was
    outside this review's authorization. Use the explicit IDs and results supports.
-2. **Open: incomplete model identity binding.** `artifacts/selected_model.json:55`
-   records source hashes and four artifact hashes, but no `model.joblib` digest.
-   Its `split_sha256` at line 65 hashes the original `split.json`, not
-   `split_final.json`. All listed hashes match, and the released joblib bundle's
-   embedded selection, feature order, and fitted estimator parameters match the
-   JSON. That is a metadata consistency check, not a pre-existing binary checksum.
+2. **Fixed: incomplete model identity binding.** `artifacts/selected_model.json`
+   now includes SHA-256 hex fields `model_joblib_sha256` for `model.joblib` and
+   `split_final_sha256` for `split_final.json`. `split_sha256` still hashes the
+   original `split.json`. These two fields were added directly to the JSON after
+   serialization; the unchanged bundle's embedded selection omits them. They bind
+   the current files, not proof of their historical identity or prediction equality.
 3. **Fixed: morphology description order.** `FEATURES.md:79` and `FEATURES.md:84`
    now describe demeaning each beat before taking its pointwise median template,
    followed by demeaning the template. This matches `afib/features.py:140`.

@@ -36,12 +36,14 @@ earlier automatic review that returned HTTP 429 later succeeded.
 ## Model and repository identity
 
 - Shawn explicitly chose to keep `artifacts/model.joblib` in Git during this review.
-  The released file is 1,343,692 bytes. Its measured SHA-256 is
+  The file at that review was 1,343,692 bytes. Its measured SHA-256 was
   `fbea1c12f0fb7c10d86e5a819e664210ba619cd61cb1b7d537914a0e6680da7a`.
-- All hashes listed in `selected_model.json` match their referenced files. The
-  joblib bundle's embedded selection, feature order and estimator parameters match
-  that JSON. The JSON contains no model-file checksum and hashes the original
-  split rather than the exclusion-adjusted split; see [review findings](REVIEW_FINDINGS.md).
+- Follow-up: the current 1,343,750-byte bundle is identified by `model_joblib_sha256`
+  in `selected_model.json`; `split_final_sha256` identifies the exclusion-adjusted
+  split, while `split_sha256` still identifies the original split. Both new fields
+  are SHA-256 hex digests added after serialization, so embedded selection matches
+  the JSON except for these additions. See [review findings](REVIEW_FINDINGS.md) and
+  [current verification limits](REPRODUCIBILITY.md#saved-model-verification).
 - GitHub API confirmed the repository description, homepage, and topics are set.
   Homepage: https://shawnjoshua03.github.io/afib-ecg-classifier/ . Topics:
   atrial-fibrillation, ecg, machine-learning, physionet, reproducible-research,
