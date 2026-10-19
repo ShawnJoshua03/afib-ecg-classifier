@@ -1,0 +1,2 @@
+# Optional: used only for end-to-end demo verification, not training or CI unit tests.
+playwright==1.64.0
