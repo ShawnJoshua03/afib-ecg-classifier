@@ -40,6 +40,12 @@ The old dataset webpage still displays a four-class average; do not use that for
 
 If no patient IDs: sort record IDs, stratified 80/20 train/test split, seed 2017.
 Save explicit train/test record IDs and input hashes. Never change the split or tune on test.
+Pre-fit duplicate audit found A00227 (train) and A01176 (test) to be identical signals.
+The test copy A01176 was excluded before any model fitting; the original split remains
+in `artifacts/split.json`, and the evaluated 1,705 test IDs are in `artifacts/split_final.json`.
+Its copied `test_class_counts` metadata still describes the original 1,706-record split;
+use the final IDs and `results.json` supports (see `docs/REVIEW_FINDINGS.md`).
+The seed and all remaining assignments were unchanged; this does not establish patient independence.
 Use five-fold StratifiedKFold(shuffle=True, random_state=2017) inside training only.
 Fit imputation/scaling within each fold where required. Any feature transformations are
 record-local and label-free. Optimize only the official mean F1 on CV folds.

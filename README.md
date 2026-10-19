@@ -11,6 +11,8 @@ using classical machine learning. **Not a medical device; no clinical validation
 **[Live demo](https://shawnjoshua03.github.io/afib-ecg-classifier/)** - 28 curated held-out recordings with
 detected peaks, true label, prediction and probabilities, including mistakes.
 
+![ECG demo showing a held-out model mistake, detected peaks and uncalibrated probabilities](docs/demo.png)
+
 ## Results
 
 Held-out test set: 1,705 recordings (record-level stratified 80/20 split, seed 2017; test set never used
@@ -82,3 +84,9 @@ pytest
 - Not a medical device; no clinical validation; not for diagnosis.
 
 Data: PhysioNet/CinC Challenge 2017, Open Data Commons Attribution License v1.0 ([DATA_LICENSE.md](DATA_LICENSE.md)).
+
+Credits: [Bklit UI](https://github.com/bklit/bklit-ui) (MIT) for chart components
+([upstream notice](demo/public/BKLIT_LICENSE.txt)); PhysioNet/CinC 2017 data (ODC-By).
+
+Release review: [findings and evidence](docs/REVIEW_FINDINGS.md), including the stale
+final-split count metadata and the limits of the saved model hashes.

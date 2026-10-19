@@ -29,6 +29,29 @@ Times are UTC. The five-hour window begins 2026-10-19 05:01; deadline 10:01.
   floating-point boundary bug and strengthened header metadata validation before fitting.
   Luna implemented synthetic loading/feature/peak tests; 23 tests pass.
 
+## Training and demo completion (recorded during handoff, 2026-10-19)
+
+- Results below are copied at full stored precision from `artifacts/results.json`;
+  they describe the local public-data holdout, not the challenge private test set.
+- majority official mean F1: `0.24862081647664583`.
+- rr_logistic official mean F1: `0.6668134016177736`.
+- hist_gradient_boosting official mean F1: `0.7800483091787439`.
+- Selected training CV mean: `0.7923677521918693`; population SD: `0.0096546355795168`.
+- Training records: 6822; held-out records: 1705; features: 34; seed: 2017.
+- Before fitting, exact-duplicate audit identified A00227 in train / A01176 in
+  test. Excluded A01176 from evaluation, preserving the original split and seed.
+  `split_final.json` holds the evaluated IDs; its copied class-count metadata is
+  stale, as disclosed in `docs/REVIEW_FINDINGS.md`. A02656/A03123 both remain in test.
+- Final v3 labels differ from the archive reference for 148 recordings, as recorded
+  by `dataset_audit.json`; the pipeline consistently uses the verified v3 reference.
+- The released demo contains 28 curated held-out recordings, including 11 mistakes.
+  It changed from plain HTML/JavaScript to React + Vite + Tailwind/shadcn with Bklit
+  charts because Shawn requested Bklit. This is an implementation deviation from
+  SPEC's original no-framework/static HTML plan, not a change to evaluation.
+- Added duplicate disclosure to SPEC, README credits for Bklit UI (MIT) and the
+  PhysioNet/CinC 2017 data (ODC-By), the upstream Bklit MIT notice, and a screenshot.
+  The CI migration is recorded under task E below.
+
 ## Handoff task C — local pytest directories (2026-10-19)
 
 - The nine data-loading/split cases already used pytest's built-in `tmp_path`.
