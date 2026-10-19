@@ -22,7 +22,7 @@ not edited to conceal discrepancies.
    now describe demeaning each beat before taking its pointwise median template,
    followed by demeaning the template. This matches `afib/features.py:140`.
    The near-zero norm guard is now described accurately too. No feature changed.
-4. **Fixed: claims stronger than evidence.** `README.md:75` now limits the
+4. **Fixed: claims stronger than evidence.** `README.md:77` now limits the
    no-patient-ID statement to inspected headers/reference labels. The duration
    range is explicitly approximate. The README and demo describe detected peaks
    rather than implying validated R-wave annotations; absolute extrema can fall

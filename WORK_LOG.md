@@ -85,8 +85,6 @@ Times are UTC. The five-hour window begins 2026-10-19 05:01; deadline 10:01.
   dependency, pull-request deployment exclusion, and `demo/dist` upload path.
   The post-push run and live-site checks are recorded below when verified.
 
-## Reporting rules
-
 ## Handoff task G — release review (2026-10-19)
 
 - Reviewed the original two release commits by hand; `/security-review` was not
@@ -99,7 +97,23 @@ Times are UTC. The five-hour window begins 2026-10-19 05:01; deadline 10:01.
   advisory in the shadcn CLI dependency chain. No automatic major downgrade was
   applied. Full scope, model digest, and remaining risks: `docs/RELEASE_REVIEW.md`.
 
-## Reporting rules (continued)
+## Handoff task A — reproducibility (2026-10-19)
+
+- Deleted the feature-cache directory, kept raw data, and ran the unchanged full
+  training command with the existing Python 3.13 virtualenv. Exit code 0.
+- All baseline/main scores, 16-candidate CV results, folds, splits, feature schema,
+  and manifest matched exactly. Both prediction CSVs were byte-identical; 1,705
+  unique held-out prediction IDs had no overlap with training IDs.
+- Fitted estimator state matched exactly. The original model on freshly extracted
+  features reproduced all predictions and probabilities (maximum difference 0.0).
+- The rerun added only the later-created demo generator to source-hash metadata,
+  changing `selected_model.json` and the surrounding joblib bundle, not estimator
+  state. Preserved rerun evidence locally and restored the original release files.
+  Full comparison and unchanged scores: `docs/REPRODUCIBILITY.md`.
+- Final local gates: 23 tests pass, Ruff passes, demo builds. Screenshot/browser
+  verification covered 112 combinations. Frozen model/evaluation source is unchanged.
+
+## Reporting rules
 
 Record measured scores only after computation. Do not rewrite the model after viewing
 test scores. Any correction affecting evaluation must be logged explicitly.
