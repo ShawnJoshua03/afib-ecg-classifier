@@ -37,8 +37,6 @@ Times are UTC. The five-hour window begins 2026-10-19 05:01; deadline 10:01.
   The sandbox also denied access to Windows' normal pytest temp directory; running
   with normal user access passed all 23 tests. No fixtures or assertions were weakened.
 
-## Reporting rules
-
 ## Handoff task D — demo polish (2026-10-19)
 
 - Added a text error banner and a light/dark toggle, disabled ECG edge fading,
@@ -54,7 +52,17 @@ Times are UTC. The five-hour window begins 2026-10-19 05:01; deadline 10:01.
 - The optional confusion-matrix chart was omitted. Vite still reports a 517.49 kB
   minified JS chunk warning; it does not prevent the build.
 
-## Reporting rules (continued)
+## Handoff task E — CI hygiene (2026-10-19)
+
+- Verified current releases through the official GitHub release pages and API:
+  checkout v7.0.1, setup-python v7.0.0, setup-node v7.1.0, configure-pages v6.0.0,
+  upload-pages-artifact v5.0.0, deploy-pages v5.0.1. Updated the workflow to those
+  majors, including the Pages actions that also carried older Node runtimes.
+- Preserved Python 3.13, application Node.js 22, the `checks` -> `deploy`
+  dependency, pull-request deployment exclusion, and `demo/dist` upload path.
+  The post-push run and live-site checks are recorded below when verified.
+
+## Reporting rules
 
 Record measured scores only after computation. Do not rewrite the model after viewing
 test scores. Any correction affecting evaluation must be logged explicitly.
