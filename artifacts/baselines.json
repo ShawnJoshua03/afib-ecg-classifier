@@ -1,0 +1,168 @@
+{
+  "majority": {
+    "confusion_matrix": [
+      [
+        1014,
+        0,
+        0,
+        0
+      ],
+      [
+        152,
+        0,
+        0,
+        0
+      ],
+      [
+        483,
+        0,
+        0,
+        0
+      ],
+      [
+        56,
+        0,
+        0,
+        0
+      ]
+    ],
+    "label_order": [
+      "N",
+      "A",
+      "O",
+      "~"
+    ],
+    "n_test": 1705,
+    "official_mean_f1": 0.24862081647664583,
+    "per_class": {
+      "A": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 152.0
+      },
+      "N": {
+        "f1-score": 0.7458624494299375,
+        "precision": 0.5947214076246334,
+        "recall": 1.0,
+        "support": 1014.0
+      },
+      "O": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 483.0
+      },
+      "accuracy": 0.5947214076246334,
+      "macro avg": {
+        "f1-score": 0.18646561235748438,
+        "precision": 0.14868035190615836,
+        "recall": 0.25,
+        "support": 1705.0
+      },
+      "weighted avg": {
+        "f1-score": 0.4435803658193294,
+        "precision": 0.35369355268702535,
+        "recall": 0.5947214076246334,
+        "support": 1705.0
+      },
+      "~": {
+        "f1-score": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 56.0
+      }
+    }
+  },
+  "majority_class": "N",
+  "rr_features": [
+    "rr_mean_s",
+    "rr_std_s",
+    "rr_rmssd_s",
+    "rr_pnn50",
+    "rr_cv",
+    "rr_turning_point_ratio",
+    "rr_sample_entropy"
+  ],
+  "rr_fit_warnings": [],
+  "rr_logistic": {
+    "confusion_matrix": [
+      [
+        933,
+        19,
+        57,
+        5
+      ],
+      [
+        26,
+        99,
+        23,
+        4
+      ],
+      [
+        272,
+        14,
+        193,
+        4
+      ],
+      [
+        25,
+        11,
+        5,
+        15
+      ]
+    ],
+    "label_order": [
+      "N",
+      "A",
+      "O",
+      "~"
+    ],
+    "n_test": 1705,
+    "official_mean_f1": 0.6668134016177736,
+    "per_class": {
+      "A": {
+        "f1-score": 0.6711864406779661,
+        "precision": 0.6923076923076923,
+        "recall": 0.6513157894736842,
+        "support": 152.0
+      },
+      "N": {
+        "f1-score": 0.8220264317180617,
+        "precision": 0.7428343949044586,
+        "recall": 0.9201183431952663,
+        "support": 1014.0
+      },
+      "O": {
+        "f1-score": 0.507227332457293,
+        "precision": 0.6942446043165468,
+        "recall": 0.3995859213250518,
+        "support": 483.0
+      },
+      "accuracy": 0.7272727272727273,
+      "macro avg": {
+        "f1-score": 0.5893957654990445,
+        "precision": 0.6662752443107458,
+        "recall": 0.5597192992127863,
+        "support": 1705.0
+      },
+      "weighted avg": {
+        "f1-score": 0.7041325174909312,
+        "precision": 0.7177624572133621,
+        "recall": 0.7272727272727273,
+        "support": 1705.0
+      },
+      "~": {
+        "f1-score": 0.35714285714285715,
+        "precision": 0.5357142857142857,
+        "recall": 0.26785714285714285,
+        "support": 56.0
+      }
+    }
+  },
+  "rr_model_parameters": {
+    "C": 1.0,
+    "max_iter": 5000,
+    "solver": "lbfgs"
+  }
+}

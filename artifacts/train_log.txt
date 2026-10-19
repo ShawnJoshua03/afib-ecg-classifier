@@ -1,0 +1,40 @@
+{
+  "archive_url": "https://physionet.org/files/challenge-2017/1.0.0/training2017.zip",
+  "archive_bytes": 99226822,
+  "archive_sha256": "25fdbab36bb6724b66a4d2c26ff89f6b9d6ff87e6aed714d24cf5bf071cd1255",
+  "uncompressed_bytes": 167419202,
+  "reference_url": "https://physionet.org/files/challenge-2017/1.0.0/REFERENCE-v3.csv",
+  "reference_sha256": "ae517e474b0bc89a7517ad876b5b4dadc6c94f680d0665c04746db9432df855b",
+  "license": "Open Data Commons Attribution License v1.0"
+}
+Validated 2000/8528 ECG/header pairs
+Validated 4000/8528 ECG/header pairs
+Validated 6000/8528 ECG/header pairs
+Validated 8000/8528 ECG/header pairs
+Extracted 1000/8528 records
+Extracted 2000/8528 records
+Extracted 3000/8528 records
+Extracted 4000/8528 records
+Extracted 5000/8528 records
+Extracted 6000/8528 records
+Extracted 7000/8528 records
+Extracted 8000/8528 records
+Majority test official F1: 0.248621
+RR baseline test official F1: 0.666813
+CV candidate 1/16: mean official F1=0.791351
+CV candidate 2/16: mean official F1=0.784317
+CV candidate 3/16: mean official F1=0.783680
+CV candidate 4/16: mean official F1=0.785923
+CV candidate 5/16: mean official F1=0.787098
+CV candidate 6/16: mean official F1=0.783250
+CV candidate 7/16: mean official F1=0.784512
+CV candidate 8/16: mean official F1=0.787326
+CV candidate 9/16: mean official F1=0.786829
+CV candidate 10/16: mean official F1=0.790040
+CV candidate 11/16: mean official F1=0.783880
+CV candidate 12/16: mean official F1=0.789982
+CV candidate 13/16: mean official F1=0.789696
+CV candidate 14/16: mean official F1=0.791225
+CV candidate 15/16: mean official F1=0.790007
+CV candidate 16/16: mean official F1=0.792368
+Selected model test official F1: 0.780048

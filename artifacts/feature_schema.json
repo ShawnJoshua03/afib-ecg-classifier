@@ -1,0 +1,62 @@
+{
+  "definitions": "FEATURES.md and afib/features.py",
+  "detector": {
+    "band_hz": [
+      5.0,
+      20.0
+    ],
+    "energy_window_seconds": 0.1,
+    "filter_order": 3,
+    "height_above_median_fraction_of_q95_range": 0.15,
+    "minimum_signal_seconds": 1.0,
+    "prominence_fraction_of_q95_range": 0.2,
+    "refinement_radius_seconds": 0.12,
+    "refractory_seconds": 0.25
+  },
+  "feature_names": [
+    "rr_mean_s",
+    "rr_std_s",
+    "rr_rmssd_s",
+    "rr_pnn50",
+    "rr_cv",
+    "rr_turning_point_ratio",
+    "rr_sample_entropy",
+    "rr_median_s",
+    "rr_iqr_s",
+    "rr_p10_s",
+    "rr_p90_s",
+    "rr_min_s",
+    "rr_max_s",
+    "rr_implausible_fraction",
+    "duration_s",
+    "n_detected_peaks",
+    "peak_rate_hz",
+    "signal_std_mv",
+    "signal_iqr_mv",
+    "signal_p99_p01_range_mv",
+    "signal_skewness",
+    "signal_excess_kurtosis",
+    "flat_step_fraction",
+    "observed_extrema_fraction",
+    "difference_std_over_signal_std",
+    "power_baseline_ratio",
+    "power_qrs_band_ratio",
+    "power_high_frequency_ratio",
+    "power_mains_ratio",
+    "spectral_entropy",
+    "peak_amplitude_median_mv",
+    "peak_amplitude_cv",
+    "template_correlation_median",
+    "template_low_correlation_fraction"
+  ],
+  "missing_value": "NaN: native HGB handling; train-fit median imputation for baseline",
+  "n_features": 34,
+  "source_identity": {
+    "code": {
+      "data.py": "d875c4905fdbae9ad2ecfcd36089ba2098ec7ba6d2ec2fd0235ab210868c66d8",
+      "features.py": "0a1641e8fa78ccd05682b52fe40bdd4ea4704b4d2fb98460c85827963d9e49e8",
+      "signal.py": "18db5d90e64250a9ec9e5b6605841f613598b34346ee1d1273ff24b8df475b37"
+    },
+    "records_sha256": "1275abe4671e50a84288c7cc7977b6984f84b740de160ff81dad42691fd34152"
+  }
+}

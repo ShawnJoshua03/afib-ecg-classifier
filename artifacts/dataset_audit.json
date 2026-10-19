@@ -1,0 +1,42 @@
+{
+  "archive_reference_class_counts": {
+    "A": 738,
+    "N": 5050,
+    "O": 2456,
+    "~": 284
+  },
+  "archive_reference_label_changes": 148,
+  "class_counts": {
+    "A": 758,
+    "N": 5076,
+    "O": 2415,
+    "~": 279
+  },
+  "duplicate_signal_groups": [
+    [
+      "A00227",
+      "A01176"
+    ],
+    [
+      "A02656",
+      "A03123"
+    ]
+  ],
+  "duration_seconds_max": 60.95333333333333,
+  "duration_seconds_median": 30.0,
+  "duration_seconds_min": 9.046666666666667,
+  "extra_header_line_records": 0,
+  "final_reference_sha256": "ae517e474b0bc89a7517ad876b5b4dadc6c94f680d0665c04746db9432df855b",
+  "header_line_counts": {
+    "2": 8528
+  },
+  "n_records": 8528,
+  "patient_id_evidence": "No documented patient identifiers in inspected reference/header fields. REFERENCE.csv contains record ID and rhythm label only. Single-lead WFDB headers contain record ID, signal metadata, date/time and lead description, no patient ID. Record IDs and date/time fields are not documented patient identifiers.",
+  "patient_ids_available": false,
+  "records_sha256": "1275abe4671e50a84288c7cc7977b6984f84b740de160ff81dad42691fd34152",
+  "sample_count_max": 18286,
+  "sample_count_min": 2714,
+  "sampling_rates_hz": [
+    300.0
+  ]
+}

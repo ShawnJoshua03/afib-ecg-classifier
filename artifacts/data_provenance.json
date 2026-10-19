@@ -1,0 +1,9 @@
+{
+  "archive_bytes": 99226822,
+  "archive_sha256": "25fdbab36bb6724b66a4d2c26ff89f6b9d6ff87e6aed714d24cf5bf071cd1255",
+  "archive_url": "https://physionet.org/files/challenge-2017/1.0.0/training2017.zip",
+  "license": "Open Data Commons Attribution License v1.0",
+  "reference_sha256": "ae517e474b0bc89a7517ad876b5b4dadc6c94f680d0665c04746db9432df855b",
+  "reference_url": "https://physionet.org/files/challenge-2017/1.0.0/REFERENCE-v3.csv",
+  "uncompressed_bytes": 167419202
+}

@@ -1,0 +1,112 @@
+{
+  "candidates": [
+    {
+      "class_weight": null,
+      "l2_regularization": 1.0,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 40
+    },
+    {
+      "class_weight": "balanced",
+      "l2_regularization": 1.0,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 40
+    },
+    {
+      "class_weight": null,
+      "l2_regularization": 0.0,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 40
+    },
+    {
+      "class_weight": "balanced",
+      "l2_regularization": 0.0,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 40
+    },
+    {
+      "class_weight": null,
+      "l2_regularization": 1.0,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 20
+    },
+    {
+      "class_weight": "balanced",
+      "l2_regularization": 1.0,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 20
+    },
+    {
+      "class_weight": null,
+      "l2_regularization": 0.0,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 20
+    },
+    {
+      "class_weight": "balanced",
+      "l2_regularization": 0.0,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 20
+    },
+    {
+      "class_weight": null,
+      "l2_regularization": 1.0,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40
+    },
+    {
+      "class_weight": "balanced",
+      "l2_regularization": 1.0,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40
+    },
+    {
+      "class_weight": null,
+      "l2_regularization": 0.0,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40
+    },
+    {
+      "class_weight": "balanced",
+      "l2_regularization": 0.0,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40
+    },
+    {
+      "class_weight": null,
+      "l2_regularization": 1.0,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 20
+    },
+    {
+      "class_weight": "balanced",
+      "l2_regularization": 1.0,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 20
+    },
+    {
+      "class_weight": null,
+      "l2_regularization": 0.0,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 20
+    },
+    {
+      "class_weight": "balanced",
+      "l2_regularization": 0.0,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 20
+    }
+  ],
+  "cv_folds": 5,
+  "cv_seed": 2017,
+  "estimator": "HistGradientBoostingClassifier",
+  "fixed_parameters": {
+    "early_stopping": false,
+    "learning_rate": 0.08,
+    "max_bins": 255,
+    "max_iter": 200,
+    "random_state": 2017
+  },
+  "selection_metric": "mean of five fold-specific official F1(N,A,O) scores",
+  "tie_break": "first candidate in declared order"
+}

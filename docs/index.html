@@ -3,11 +3,58 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ECG rhythm explorer | Shawn</title>
-<main style="max-width:50rem;margin:10vh auto;padding:2rem;font:1.2rem/1.6 system-ui">
+<style>
+  :root{color-scheme:light dark;--bg:#fff;--fg:#1a1a1a;--mut:#666;--ok:#117a3d;--bad:#b3261e;--line:#c9c9c9}
+  @media(prefers-color-scheme:dark){:root{--bg:#161616;--fg:#eee;--mut:#aaa;--ok:#4cc77f;--bad:#ff7b72;--line:#444}}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui}
+  main{max-width:56rem;margin:0 auto;padding:1rem}
+  select,button{font:inherit;padding:.3rem .5rem}
+  canvas{width:100%;height:240px;border:1px solid var(--line);border-radius:6px}
+  .row{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin:.75rem 0}
+  .tag{font-weight:700}.ok{color:var(--ok)}.bad{color:var(--bad)}
+  .bar{display:flex;align-items:center;gap:.5rem;margin:.15rem 0}
+  .bar i{display:block;height:.8rem;background:var(--mut);border-radius:3px}
+  .note{color:var(--mut);font-size:.9rem}
+</style>
+<main>
   <h1>ECG rhythm explorer</h1>
-  <p>A reproducible study of single-lead ECG classification by Shawn.</p>
-  <p>The model and held-out evaluation are being built. No results are available yet.</p>
-  <p>Research portfolio project. Not a medical device; no clinical validation.</p>
+  <p class="note">Curated held-out recordings (PhysioNet/CinC 2017), including model mistakes. This is a
+  demonstration, not an evaluation: headline scores are in the README. Not a medical device; no clinical validation.</p>
+  <div class="row"><label>Recording <select id="sel"></select></label>
+    <button id="prev">Prev</button><button id="next">Next</button></div>
+  <canvas id="cv" width="1000" height="240"></canvas>
+  <p class="note">First <span id="secs"></span> s shown. Red ticks are <em>detected</em> R-peaks (algorithmic, not expert annotations).</p>
+  <div class="row"><span>True label: <span class="tag" id="true"></span></span>
+    <span>Prediction: <span class="tag" id="pred"></span></span>
+    <span id="verdict" class="tag"></span></div>
+  <div id="probs"></div>
+  <p class="note">Probabilities are uncalibrated model outputs, not clinical certainty. N=Normal, A=AFib, O=Other rhythm, ~=Noisy.</p>
   <a href="https://github.com/ShawnJoshua03/afib-ecg-classifier">Source and methods</a>
 </main>
+<script>
+fetch("demo_data.json").then(r=>r.json()).then(d=>{
+  const R=d.records,sel=document.getElementById("sel");let i=0;
+  document.getElementById("secs").textContent=d.seconds_shown;
+  R.forEach((r,k)=>{const o=document.createElement("option");
+    o.value=k;o.textContent=r.id+" ("+r.true+(r.correct?"":", model wrong")+")";sel.appendChild(o)});
+  function draw(r){
+    const c=document.getElementById("cv"),x=c.getContext("2d"),W=c.width,H=c.height;
+    const css=getComputedStyle(document.body);x.clearRect(0,0,W,H);
+    const s=r.signal,lo=Math.min(...s),hi=Math.max(...s),sy=v=>H-8-(v-lo)/((hi-lo)||1)*(H-16);
+    x.strokeStyle=css.color;x.lineWidth=1.2;x.beginPath();
+    s.forEach((v,j)=>{const px=j/(s.length-1)*W;j?x.lineTo(px,sy(v)):x.moveTo(px,sy(v))});x.stroke();
+    x.strokeStyle="#e53935";x.lineWidth=2;
+    r.peaks.forEach(p=>{const px=p/(s.length-1)*W;x.beginPath();x.moveTo(px,4);x.lineTo(px,22);x.stroke()});
+  }
+  function show(k){i=k;sel.value=k;const r=R[k];draw(r);
+    document.getElementById("true").textContent=r.true;
+    document.getElementById("pred").textContent=r.pred;
+    const v=document.getElementById("verdict");v.textContent=r.correct?"Correct":"Wrong";
+    v.className="tag "+(r.correct?"ok":"bad");
+    document.getElementById("probs").innerHTML=Object.entries(r.probs).map(([k,p])=>
+      `<div class="bar"><b style="width:1.5rem">${k}</b><i style="width:${p*300}px"></i>${(p*100).toFixed(1)}%</div>`).join("")}
+  sel.onchange=()=>show(+sel.value);
+  prev.onclick=()=>show((i+R.length-1)%R.length);next.onclick=()=>show((i+1)%R.length);show(0);
+});
+</script>
 </html>
