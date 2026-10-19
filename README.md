@@ -1,5 +1,7 @@
 # ECG rhythm classifier (AFib)
 
+**[Portfolio](https://shawnjoshua03.github.io/)**
+
 [![CI](https://github.com/ShawnJoshua03/afib-ecg-classifier/actions/workflows/ci.yml/badge.svg)](https://github.com/ShawnJoshua03/afib-ecg-classifier/actions/workflows/ci.yml)
 [![Live demo](https://img.shields.io/badge/demo-live-blue)](https://shawnjoshua03.github.io/afib-ecg-classifier/)
 
