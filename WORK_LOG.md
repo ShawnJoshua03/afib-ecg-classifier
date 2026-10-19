@@ -39,6 +39,23 @@ Times are UTC. The five-hour window begins 2026-10-19 05:01; deadline 10:01.
 
 ## Reporting rules
 
+## Handoff task D — demo polish (2026-10-19)
+
+- Added a text error banner and a light/dark toggle, disabled ECG edge fading,
+  explained absolute filtered-extremum markers, and stated that predictions use
+  full recordings. Fixed the 0–12 s domain so shorter records leave a truthful gap.
+- Kept controls within phone width, corrected the page title/relative favicon,
+  removed a Vite configuration deprecation, and replaced the demo README with
+  five run/build instructions. No model, detector, or curated prediction changed.
+- `npm run build` passed. Headless Edge checked all 28 records in both themes at
+  1280 px and 390 px: 112 combinations, no horizontal overflow or page errors.
+  Marker counts and error-banner visibility matched every record. Desktop light
+  and phone dark screenshots were visually inspected; `docs/demo.png` was captured.
+- The optional confusion-matrix chart was omitted. Vite still reports a 517.49 kB
+  minified JS chunk warning; it does not prevent the build.
+
+## Reporting rules (continued)
+
 Record measured scores only after computation. Do not rewrite the model after viewing
 test scores. Any correction affecting evaluation must be logged explicitly.
 Curated demo mistakes are selected after evaluation solely for inspection, never tuning.

@@ -23,6 +23,10 @@ const T0 = Date.UTC(2000, 0, 1)
 export default function App() {
   const [demo, setDemo] = useState<Demo | null>(null)
   const [i, setI] = useState(0)
+  const [dark, setDark] = useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches)
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark)
+  }, [dark])
   useEffect(() => {
     fetch("demo_data.json").then((r) => r.json()).then(setDemo)
   }, [])
@@ -40,14 +44,20 @@ export default function App() {
 
   return (
     <main className="mx-auto max-w-4xl space-y-4 p-4">
-      <h1 className="text-2xl font-bold">ECG rhythm explorer</h1>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h1 className="text-2xl font-bold">ECG rhythm explorer</h1>
+        <button className="rounded border px-3 py-1 text-sm" aria-pressed={dark} onClick={() => setDark(!dark)}>
+          {dark ? "Light mode" : "Dark mode"}
+        </button>
+      </div>
       <p className="text-sm text-muted-foreground">
         Curated held-out recordings (PhysioNet/CinC 2017), including model mistakes. A demonstration,
         not an evaluation: headline scores are in the README. Not a medical device; no clinical validation.
       </p>
       <div className="flex flex-wrap items-center gap-2">
         <select
-          className="rounded border bg-background px-2 py-1"
+          aria-label="Recording"
+          className="min-w-0 max-w-full rounded border bg-background px-2 py-1"
           value={i}
           onChange={(e) => setI(+e.target.value)}
         >
@@ -61,10 +71,15 @@ export default function App() {
         <button className="rounded border px-3 py-1" onClick={() => setI((i + demo.records.length - 1) % demo.records.length)}>Prev</button>
         <button className="rounded border px-3 py-1" onClick={() => setI((i + 1) % demo.records.length)}>Next</button>
       </div>
-      <div className="rounded-lg border p-2">
-        <LineChart data={data} aspectRatio="3 / 1" margin={{ top: 20, right: 20, bottom: 30, left: 20 }}>
+      {!rec.correct && (
+        <div role="status" className="rounded-lg border-2 border-red-600 bg-red-50 p-3 text-sm text-red-950 dark:border-red-400 dark:bg-red-950 dark:text-red-100">
+          <strong>Model wrong.</strong> Predicted {NAMES[rec.pred]}; reference label: {NAMES[rec.true]}.
+        </div>
+      )}
+      <div className="min-w-0 rounded-lg border p-2" aria-label={`ECG trace for ${rec.id}`}>
+        <LineChart data={data} xDomain={[new Date(T0), new Date(T0 + demo.seconds_shown * 1000)]} aspectRatio="3 / 1" margin={{ top: 20, right: 20, bottom: 30, left: 20 }}>
           <Grid horizontal />
-          <Line dataKey="ecg" stroke="#2563eb" strokeWidth={1.5} />
+          <Line dataKey="ecg" stroke={dark ? "#60a5fa" : "#2563eb"} strokeWidth={1.5} fadeEdges={false} />
           <PeakMarkers dataKey="peak" />
           <ChartTooltip showDatePill={false} rows={(p) => [{ color: "#2563eb", label: "mV", value: (p.ecg as number).toFixed(2) }]} />
         </LineChart>
@@ -75,7 +90,9 @@ export default function App() {
         </div>
       </div>
       <p className="text-xs text-muted-foreground">
-        First {demo.seconds_shown} s shown. Markers are <em>detected</em> R-peaks (algorithmic, not expert annotations).
+        Up to the first {demo.seconds_shown} s shown; shorter recordings leave a gap at the right. Prediction uses the full recording.
+        {" "}Markers are <em>detected</em> peaks (algorithmic, not expert annotations).
+        {" "}Markers follow the strongest absolute filtered extremum, so they can sit on an S wave rather than an R wave.
       </p>
       <div className="flex flex-wrap gap-6">
         <span>True: <b>{NAMES[rec.true]}</b></span>
