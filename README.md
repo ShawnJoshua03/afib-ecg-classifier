@@ -9,7 +9,7 @@ open PhysioNet/CinC Challenge 2017 data as **Normal (N), AFib (A), Other rhythm 
 using classical machine learning. **Not a medical device; no clinical validation.**
 
 **[Live demo](https://shawnjoshua03.github.io/afib-ecg-classifier/)** - 28 curated held-out recordings with
-detected R-peaks, true label, prediction and probabilities, including mistakes.
+detected peaks, true label, prediction and probabilities, including mistakes.
 
 ## Results
 
@@ -49,7 +49,8 @@ All numbers come from `artifacts/results.json`, written by `python -m afib.train
 ## How it works
 
 1. Convert each recording to mV using its WFDB header (sampling rate is read, not assumed).
-2. Detect R-peaks with a 5-20 Hz band-pass, energy envelope and `scipy.signal.find_peaks`.
+2. Detect candidate beats with a 5-20 Hz band-pass, energy envelope and `scipy.signal.find_peaks`;
+   markers follow absolute filtered extrema and can land on an S wave.
 3. Compute 34 features: RR-interval statistics (mean, SD, RMSSD, pNN50, CV, turning-point ratio,
    sample entropy, percentiles), signal-quality and morphology summaries, duration
    (see [FEATURES.md](FEATURES.md)).
@@ -71,10 +72,10 @@ pytest
 
 ## Limitations
 
-- **No patient IDs** in this dataset, so the split is by record. Several recordings may come from the same
+- **No documented patient IDs** in the inspected headers/reference labels, so the split is by record. Several recordings may come from the same
   patient, which can inflate test scores. One exact-duplicate signal pair (A00227 in train, A01176 in test)
   crossed the split; the test copy was excluded (1,705 test records instead of 1,706), decided before any model was fit.
-- Small dataset (8,528 recordings), single lead, single device. Recordings are 9-61 s.
+- Small dataset (8,528 recordings), single lead, single device. Recordings are approximately 9-61 s.
 - Labels are noisy; "Other" is a heterogeneous class and, with "Noisy" (only 56 test records), is the weakest.
 - R-peak detection is validated on synthetic signals only; no accuracy against expert beat annotations is claimed.
 - Probabilities are uncalibrated. The demo set is curated to include errors and is not an evaluation.

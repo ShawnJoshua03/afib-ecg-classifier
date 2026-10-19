@@ -76,13 +76,14 @@ the denominator includes all bins from zero through Nyquist. Zero power gives Na
 | `spectral_entropy` | Shannon entropy of normalized PSD / log(number of PSD bins) |
 | `peak_amplitude_median_mv` | Median absolute amplitude at detected peaks in a 0.5–40 Hz waveform |
 | `peak_amplitude_cv` | Sample SD / mean absolute peak amplitude; at least two peaks |
-| `template_correlation_median` | Median Pearson correlation between complete beats and their pointwise median template |
+| `template_correlation_median` | Median Pearson correlation between demeaned complete beats and the pointwise median of those demeaned beats |
 | `template_low_correlation_fraction` | Fraction of those correlations <0.8 |
 
 Morphology uses a third-order zero-phase 0.5–40 Hz Butterworth filter. Beat windows span
 −200 through +400 ms around each detected peak and must fit fully inside the signal.
-At least five complete windows are required. Beats and the median template are demeaned;
-if any beat/template has zero norm, correlation features are NaN. These features do not
+At least five complete windows are required. Each beat is demeaned before calculating
+the pointwise median template, which is then demeaned too. If any beat norm multiplied
+by the template norm is at most machine epsilon, correlation features are NaN. These features do not
 delineate P waves or measure clinical QRS duration. Spectral ratios are not LF/HF HRV.
 
 ## Missing values
