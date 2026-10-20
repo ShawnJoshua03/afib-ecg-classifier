@@ -13,9 +13,12 @@
   `63dfa15` passed [CI and Pages deployment](https://github.com/ShawnJoshua03/afib-ecg-classifier/actions/runs/39262359376).
   The live site returned HTTP 200 and passed a headless phone-width check.
 - **Cut:** optional confusion-matrix chart only.
-- **Open:** `split_final.json` has stale pre-exclusion count metadata; the selection
-  file lacks a model binary checksum and final-split hash. These were reported,
-  not silently rewritten. An unpatched braces advisory remains in shadcn's CLI
+- **Follow-up:** `selected_model.json` now includes `model_joblib_sha256` and
+  `split_final_sha256`. The saved model loads and passes the 34-feature schema and
+  demo inference checks; full test prediction equality remains unverified without
+  local raw records or cached features (see [verification](REPRODUCIBILITY.md#saved-model-verification)).
+- **Open:** `split_final.json` still has stale pre-exclusion count metadata.
+  An unpatched braces advisory remains in shadcn's CLI
   dependency chain (seven high-severity audit entries); the app exposes no glob input.
   Vite's 517.49 kB chunk warning remains. Patient-independence and clinical validity
   are not established.

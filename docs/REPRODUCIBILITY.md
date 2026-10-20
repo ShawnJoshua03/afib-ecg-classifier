@@ -43,8 +43,33 @@ preserved. Original/rerun snapshots and check output remain locally in ignored
 
 ## Remaining evidence limits
 
-The stale Normal count in `split_final.json`, absence of a model-file digest in
-`selected_model.json`, and original-split rather than final-split hash are reported
-in [REVIEW_FINDINGS.md](REVIEW_FINDINGS.md). Exact score reproduction does not make
+The stale Normal count in `split_final.json` remains reported in
+[REVIEW_FINDINGS.md](REVIEW_FINDINGS.md). The missing model and final-split digests
+were added in the follow-up below. Exact score reproduction does not make
 the split patient-independent or clinically validate the detector/model. This was
 a reproducibility rerun of frozen choices, not a new tuning round.
+
+## Saved-model verification
+
+Follow-up on 2026-10-19 used the existing Python virtualenv without training or
+downloads. `joblib.load` passed; the estimator, bundle and feature schema agree on
+all 34 features and their order, and estimator parameters match the selection.
+`predict_proba` passed on features extracted from demo records A00633, A03176 and
+A03627: shape (3, 4), finite probabilities in [0, 1], and row sums equal to 1.
+These are rounded, at-most-12-second waveforms, not full-record test features.
+Neither this worktree nor `C:/Users/shawn/afib-ecg-classifier` contains raw records
+or cached features. Exact predictions and probabilities for all 1,705 rows of
+`artifacts/test_predictions.csv` therefore remain unverified for this saved bundle.
+
+`selected_model.json` now records SHA-256 hex digests in `model_joblib_sha256`
+and `split_final_sha256`; `split_sha256` still refers to the original `split.json`.
+Only the external JSON gained these fields; embedded selection matches its other
+fields. The model binary was not rewritten. The unchanged training code does not
+emit these two additions, so a future authorized regeneration must refresh them.
+The four older artifact hashes (`split_sha256`, `feature_schema_sha256`,
+`cv_results_sha256`, `tuning_plan_sha256`) match CRLF versions of their JSON files,
+not this checkout's LF bytes. They were left unchanged; the two new hashes cover
+the actual bytes in this checkout.
+Recommendation: keep this roughly 1.3 MB frozen model in Git for reproducible
+inference; reconsider release assets or Git LFS if model versions accumulate.
+No tracking change was made.

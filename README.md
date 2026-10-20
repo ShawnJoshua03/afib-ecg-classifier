@@ -91,4 +91,7 @@ Credits: [Bklit UI](https://github.com/bklit/bklit-ui) (MIT) for chart component
 ([upstream notice](demo/public/BKLIT_LICENSE.txt)); PhysioNet/CinC 2017 data (ODC-By).
 
 Release review: [findings and evidence](docs/REVIEW_FINDINGS.md), including the stale
-final-split count metadata and the limits of the saved model hashes.
+final-split count metadata. `artifacts/selected_model.json` records SHA-256 hex digests
+of `model.joblib` (`model_joblib_sha256`) and `split_final.json` (`split_final_sha256`);
+`split_sha256` still identifies the original `split.json`. See the
+[saved-model verification limits](docs/REPRODUCIBILITY.md#saved-model-verification).

@@ -39,6 +39,7 @@
     "template_low_correlation_fraction"
   ],
   "feature_schema_sha256": "310e40e12dd08574f1797bc2bde788ab2f33a8447dce595f138175b4e403206e",
+  "model_joblib_sha256": "b1ec22eb81ab252d8864fe0c200870015736272ffcd0c6b9217fb2c1ea2c3375",
   "n_training_records": 6822,
   "parameters": {
     "class_weight": "balanced",
@@ -63,6 +64,7 @@
     "signal.py": "18db5d90e64250a9ec9e5b6605841f613598b34346ee1d1273ff24b8df475b37",
     "train.py": "283fd01a52aef853a4e7540bf00ce03748ad2e77f3932f8457e5b9fb0a1cd683"
   },
+  "split_final_sha256": "24ff3d5e6e0f5c7585648ca9df27ab4d3a6c61cb267c59f2697cd11b3e75ebe1",
   "split_sha256": "b4e87d1ceff6b3509b7329864d4902d8b9e173444a05c84847188344cdf11867",
   "tuning_plan_sha256": "e2b0e20d577474218c243015d924d95973df65128415c464296882ac25d64ba8"
 }

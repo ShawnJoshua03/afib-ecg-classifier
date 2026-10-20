@@ -6,11 +6,13 @@ Do not change the split, seed, metric, model or hyperparameters. The test set ha
 
 ## Open items
 
-1. **Checksums in `artifacts/selected_model.json`.** It has no hash of `model.joblib` or of `split_final.json`.
-   Add both. This changes provenance metadata only, not results.
-2. **Verify the regenerated `model.joblib`.** It was rewritten when training was rerun after the cache fix.
-   Predictions are byte-identical (`test_predictions.csv`), but confirm that loading it and predicting the test
-   set gives the same output, and decide whether to keep it in git (1.3 MB).
+1. **Done: checksums in `artifacts/selected_model.json`.** Added SHA-256 hex fields
+   `model_joblib_sha256` and `split_final_sha256`; provenance metadata only.
+2. **Partially verified: regenerated `model.joblib`.** Loading, 34-feature schema/order,
+   parameters and demo `predict_proba` checks pass. Full test prediction equality remains
+   unverified: neither local checkout has raw records or cached features. Recommend keeping
+   the frozen 1.3 MB model in Git; no tracking change made. See
+   [verification details](docs/REPRODUCIBILITY.md#saved-model-verification).
 3. **Check the demo in a browser.** Only the light theme at desktop width was looked at after adding the
    confusion-matrix chart. Check dark mode, 390 px width, and the exact-count table under the chart.
 4. **Dependency advisory.** `braces` (7 high-severity `npm audit` entries) is in shadcn's CLI chain, which is
