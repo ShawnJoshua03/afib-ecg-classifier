@@ -36,7 +36,7 @@ def detect_r_peaks(signal, sampling_rate):
         raise ValueError("Expected a finite, one-dimensional ECG signal")
     if not np.isfinite(sampling_rate) or sampling_rate <= 40:
         raise ValueError("Sampling rate must exceed twice the 20 Hz filter cutoff")
-    if len(signal) < max(32, int(sampling_rate)) or np.ptp(signal) == 0:
+    if len(signal) < max(32, sampling_rate) or np.ptp(signal) == 0:
         return np.array([], dtype=int)
     filtered = bandpass(signal, sampling_rate, 5.0, 20.0)
     envelope = uniform_filter1d(filtered**2, size=max(1, round(0.100 * sampling_rate)))

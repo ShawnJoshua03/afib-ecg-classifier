@@ -46,6 +46,7 @@ def main(raw_dir=Path("data/raw/training2017"), out=Path("demo/public/demo_data.
                 "peaks": [int(p) for p in peaks],
             }
         )
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps({"seconds_shown": MAX_SECONDS, "records": records}))
     print(f"Wrote {len(records)} records to {out}")
 

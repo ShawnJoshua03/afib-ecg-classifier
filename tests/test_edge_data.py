@@ -49,7 +49,6 @@ def test_missing_header_or_mat_file_raises_oserror(tmp_path):
         read_header(tmp_path / "A00003.hea")
 
 
-@pytest.mark.xfail(strict=True, reason="corrupt .mat raises scipy MatReadError, not ValueError")
 def test_corrupt_mat_file_raises_value_error(tmp_path):
     (tmp_path / "A00001.hea").write_text(
         "A00001 1 250 1\nA00001.mat 16 200(100)/mV 16 0 -50 0 0 ECG\n", encoding="ascii"
@@ -193,7 +192,6 @@ def test_demo_data_output_shape_truncation_and_probabilities(tmp_path, monkeypat
         assert all(0 <= peak < len(record["signal"]) for peak in record["peaks"])
 
 
-@pytest.mark.xfail(strict=True, reason="demo_data.main does not create its output directory")
 def test_demo_data_creates_missing_output_directory(tmp_path, monkeypatch):
     raw_dir, _ = write_demo_inputs(tmp_path)
     monkeypatch.chdir(tmp_path)

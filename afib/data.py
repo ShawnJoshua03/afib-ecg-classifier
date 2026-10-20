@@ -10,6 +10,7 @@ from pathlib import Path
 
 import numpy as np
 from scipy.io import loadmat
+from scipy.io.matlab import MatReadError
 from sklearn.model_selection import train_test_split
 
 from afib.download import sha256
@@ -64,7 +65,10 @@ def load_recording(mat_path):
     """Load one finite lead and verify its sample count against its .hea file."""
     mat_path = Path(mat_path)
     header = read_header(mat_path.with_suffix(".hea"))
-    contents = loadmat(mat_path)
+    try:
+        contents = loadmat(mat_path)
+    except (MatReadError, ValueError, IndexError) as error:
+        raise ValueError(f"Unreadable MAT file {mat_path}: {error}") from error
     if "val" not in contents:
         raise ValueError(f"MAT file has no 'val' array: {mat_path}")
     raw = np.asarray(contents["val"])

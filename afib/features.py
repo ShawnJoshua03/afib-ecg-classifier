@@ -88,7 +88,7 @@ def spectral_features(signal, sampling_rate):
         detrend=False,
         scaling="density",
     )
-    total = np.sum(power)
+    total = np.sum(power) if np.ptp(signal) > 0 else 0.0
 
     def ratio(mask):
         return float(np.sum(power[mask]) / total) if total > 0 else np.nan

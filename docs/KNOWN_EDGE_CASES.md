@@ -1,16 +1,16 @@
 # Known edge cases
 
-Found by the edge-case tests in `tests/test_edge_*.py`. Each one is pinned by a strict `xfail`
-test, so the suite stays green and the test starts failing loudly (XPASS) once the bug is fixed.
+All four cases found by the edge-case tests in `tests/test_edge_*.py` are fixed, and their tests no longer
+use `xfail`. None could occur with the shipped data (300 Hz, non-constant, well-formed records), so the
+frozen model's results are unchanged.
 
-None is fixed on purpose. `signal.py`, `features.py`, `data.py` and `demo_data.py` are hashed into
-`artifacts/selected_model.json` (`source_sha256`), and the test set has been evaluated once. A fix
-means editing those files, rerunning `python -m afib.train` on the raw dataset and recommitting the
-artifacts. None of these can occur with the shipped data (300 Hz, non-constant, well-formed records).
+The fixes edit `signal.py`, `features.py`, `data.py` and `demo_data.py`, which are hashed into
+`artifacts/selected_model.json` (`source_sha256`). Those four hashes are now stale until
+`python -m afib.train` is rerun on the raw dataset and the artifacts are recommitted.
 
-| # | Where | What happens | Trigger | Severity |
-|---|---|---|---|---|
-| 1 | `afib/signal.py:39` | Integer truncation bypasses the one-second minimum and returns one peak. | 250 samples at 250.5 Hz | Low |
-| 2 | `afib/features.py:83` | Rounding error after demeaning creates spectral power, so a constant signal returns finite ratios and entropy instead of NaN. | `np.full(300, 0.1)` at 300 Hz | Medium |
-| 3 | `afib/data.py:67` | A corrupt `.mat` raises scipy's `MatReadError` (or `IndexError`) instead of the module's usual `ValueError`. | Valid `.hea` plus an empty `.mat` | Low |
-| 4 | `afib/demo_data.py:49` | The output folder is not created, so `main` fails with `FileNotFoundError` after processing all records. | `out` in a folder that does not exist | Low |
+| # | Where | Was | Fix |
+|---|---|---|---|
+| 1 | `afib/signal.py` | Integer truncation bypassed the one-second minimum (250 samples at 250.5 Hz returned one peak). | Compare against the float rate. |
+| 2 | `afib/features.py` | Rounding after demeaning gave a constant signal finite spectral ratios instead of NaN. | Zero total power when the signal is constant. |
+| 3 | `afib/data.py` | A corrupt `.mat` raised scipy's `MatReadError` or `IndexError`. | Raise `ValueError`. |
+| 4 | `afib/demo_data.py` | A missing output folder failed after processing every record. | Create it. |
