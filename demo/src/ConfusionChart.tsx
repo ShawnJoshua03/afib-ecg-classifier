@@ -1,82 +1,78 @@
-import { useEffect, useState } from "react"
-import { Bar } from "@/components/charts/bar"
-import { BarChart } from "@/components/charts/bar-chart"
-import { BarXAxis } from "@/components/charts/bar-x-axis"
-import { Grid } from "@/components/charts/grid"
-import { ChartTooltip } from "@/components/charts/tooltip"
-import { useChart } from "@/components/charts/chart-context"
+import { CLASS_COLOR, SHORT } from "./classes"
 
-const NAMES: Record<string, string> = { N: "Normal", A: "AFib", O: "Other", "~": "Noisy" }
-const COLORS: Record<string, string> = { N: "var(--class-normal)", A: "var(--class-afib)", O: "var(--class-other)", "~": "var(--class-noisy)" }
-
-type Results = { hist_gradient_boosting: { confusion_matrix: number[][]; label_order: string[] } }
-
-function CountAxis() {
-  const { yScale } = useChart()
-  return <g aria-hidden="true">{yScale.ticks(4).map((value) => (
-    <text key={value} x={-8} y={yScale(value)} dy="0.35em" textAnchor="end" fontSize="12" fill="var(--muted-foreground)">{value}</text>
-  ))}</g>
+export type Results = {
+  n_test: number
+  n_train: number
+  n_features: number
+  majority: { official_mean_f1: number }
+  rr_logistic: { official_mean_f1: number }
+  hist_gradient_boosting: {
+    official_mean_f1: number
+    confusion_matrix: number[][]
+    label_order: string[]
+  }
 }
 
-export default function ConfusionChart() {
-  const [res, setRes] = useState<Results | null>(null)
-  const [error, setError] = useState(false)
-  useEffect(() => {
-    fetch("results.json").then((r) => {
-      if (!r.ok) throw new Error("Could not load results")
-      return r.json()
-    }).then(setRes).catch(() => setError(true))
-  }, [])
-  if (!res) return <section className="confusion-section" aria-live="polite">
-    <h2>Held-out confusion matrix</h2>
-    <p>{error ? "Could not load the held-out results. Reload the page to try again." : "Loading held-out results…"}</p>
-    {error && <button onClick={() => window.location.reload()}>Reload page</button>}
-  </section>
+const pct = (v: number) => `${(v * 100).toFixed(1)}%`
+
+export default function ConfusionChart({ res }: { res: Results }) {
   const { confusion_matrix: m, label_order: labels } = res.hist_gradient_boosting
-  const data = labels.map((t, i) => ({
-    true: `True ${NAMES[t]}`,
-    ...Object.fromEntries(labels.map((p, j) => [NAMES[p], m[i][j]])),
-  }))
+  const ai = labels.indexOf("A")
+  const aRow = m[ai]
+  const aTotal = aRow.reduce((a, b) => a + b, 0)
+  let worst = -1
+  aRow.forEach((v, j) => { if (j !== ai && (worst < 0 || v > aRow[worst])) worst = j })
   return (
     <section className="confusion-section" aria-labelledby="confusion-title">
-      <h2 id="confusion-title">Held-out confusion matrix</h2>
-      <p>
-        All 1,705 held-out records (not only the curated ones). Each bar is a true class, split by what the model predicted.
-      </p>
+      <div className="section-head">
+        <h2 id="confusion-title">Where the model is right and wrong</h2>
+        <p>
+          All {res.n_test.toLocaleString("en-US")} held-out recordings, not only the curated ones. Each row is the reference
+          label; shading is the share of that row the model predicted in each column. The diagonal is recall.
+        </p>
+      </div>
       <div className="confusion-layout">
-      <figure className="confusion-figure" aria-label="Held-out counts by true and predicted class; exact counts in the adjacent table">
-        <div className="chart-legend">
-          {labels.map((p) => (
-            <span key={p}><i aria-hidden="true" style={{ background: COLORS[p] }} /> predicted {NAMES[p]}</span>
-          ))}
+        <div className="matrix-scroll">
+          <table className="confusion-table">
+            <caption>Rows: reference label. Columns: model prediction. Count, then row share.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Reference ↓ / predicted →</th>
+                {labels.map((p) => <th key={p} scope="col"><i className="swatch" style={{ background: CLASS_COLOR[p] }} aria-hidden="true" />{SHORT[p]}</th>)}
+                <th scope="col" className="recall-col">Recall</th>
+              </tr>
+            </thead>
+            <tbody>
+              {labels.map((t, i) => {
+                const total = m[i].reduce((a, b) => a + b, 0)
+                return (
+                  <tr key={t}>
+                    <th scope="row"><i className="swatch" style={{ background: CLASS_COLOR[t] }} aria-hidden="true" />{SHORT[t]} <span className="row-n">n={total}</span></th>
+                    {m[i].map((v, j) => {
+                      const r = total ? v / total : 0
+                      return (
+                        <td key={j} className={i === j ? "cell diagonal" : "cell"} style={{ background: `color-mix(in srgb, var(--heat) ${Math.round(r * 100)}%, var(--paper))`, color: r > 0.5 ? "var(--paper)" : "var(--foreground)" }}>
+                          <span className="cell-count">{v}</span>
+                          <span className="cell-rate">{pct(r)}</span>
+                        </td>
+                      )
+                    })}
+                    <td className="recall-col">
+                      <span className="recall-value">{pct(total ? m[i][i] / total : 0)}</span>
+                      <span className="recall-track" aria-hidden="true"><span style={{ width: pct(total ? m[i][i] / total : 0), background: CLASS_COLOR[t] }} /></span>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
         </div>
-        <BarChart data={data} xDataKey="true" stacked className="confusion-chart" animationDuration={0} margin={{ top: 20, right: 12, bottom: 30, left: 44 }}>
-          <Grid horizontal numTicksRows={4} strokeDasharray="" fadeHorizontal={false} />
-          <CountAxis />
-          {labels.map((p) => (
-            <Bar key={p} dataKey={NAMES[p]} fill={COLORS[p]} animate={false} lineCap="butt" />
-          ))}
-          <BarXAxis />
-          <ChartTooltip />
-        </BarChart>
-      </figure>
-      <table className="confusion-table">
-        <caption>Held-out recording counts</caption>
-        <thead>
-          <tr>
-            <th scope="col">True \ predicted</th>
-            {labels.map((p) => <th key={p} scope="col">{NAMES[p]}</th>)}
-          </tr>
-        </thead>
-        <tbody>
-          {labels.map((t, i) => (
-            <tr key={t}>
-              <th scope="row">{NAMES[t]}</th>
-              {m[i].map((v, j) => <td key={j} className={i === j ? "diagonal" : ""}>{v}</td>)}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        <aside className="matrix-takeaway">
+          <p className="takeaway-label">AFib, read across the row</p>
+          <p className="takeaway-big"><strong>{aRow[ai]}</strong> of {aTotal}</p>
+          <p>AFib recordings were called AFib ({pct(aRow[ai] / aTotal)} recall). Most misses went to {SHORT[labels[worst]]} ({aRow[worst]}).</p>
+          <p className="takeaway-muted">The largest single confusion overall is Other called Normal ({m[labels.indexOf("O")][labels.indexOf("N")]}): "Other" is a mixed bag of rhythms.</p>
+        </aside>
       </div>
     </section>
   )
