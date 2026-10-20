@@ -253,7 +253,7 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border
   .recording-section { padding: 14px; }
   .recording-toolbar { flex-direction: column; align-items: stretch; }
   .recording-toolbar > * { min-width: 0; }
-  .picker select { flex: 1; min-width: 0; max-width: none; }
+  .picker select { flex: 1 1 0; width: 0; min-width: 0; max-width: none; }
   .pos { display: none; }
   .confusion-table { min-width: 400px; border-spacing: 2px; }
   .row-n { display: block; margin-left: 17px; }

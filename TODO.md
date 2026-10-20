@@ -13,8 +13,8 @@ Do not change the split, seed, metric, model or hyperparameters. The test set ha
    unverified: neither local checkout has raw records or cached features. Recommend keeping
    the frozen 1.3 MB model in Git; no tracking change made. See
    [verification details](docs/REPRODUCIBILITY.md#saved-model-verification).
-3. **Check the demo in a browser.** Only the light theme at desktop width was looked at after adding the
-   confusion-matrix chart. Check dark mode, 390 px width, and the exact-count table under the chart.
+3. **Done: demo checked in a browser.** Dark mode, the exact-count table and 390 px width were checked.
+   The 390 px check found a sideways scroll from the recording picker, fixed in `demo/src/index.css`.
 4. **Dependency advisory.** `braces` (7 high-severity `npm audit` entries) is in shadcn's CLI chain, which is
    used at install time only. Re-check with `npm audit` in `demo/`, and update shadcn if a fix exists.
 5. **Vite chunk warning.** The JS bundle is about 517 kB. Optional: code-split.
