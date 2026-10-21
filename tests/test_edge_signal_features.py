@@ -155,7 +155,6 @@ def test_entropy_minimum_count_for_constant_intervals(length):
     assert entropy == 0 if length >= 10 else np.isnan(entropy)
 
 
-@pytest.mark.xfail(strict=True, reason="Fractional sampling rates truncate the one-second guard")
 def test_fractional_rate_rejects_record_shorter_than_one_second():
     rate = 250.5
     signal = pulse_train(rate, [0.5], duration=250 / rate)
@@ -163,9 +162,6 @@ def test_fractional_rate_rejects_record_shorter_than_one_second():
     assert detect_r_peaks(signal, rate).size == 0
 
 
-@pytest.mark.xfail(
-    strict=True, reason="Demeaning a constant 0.1 signal creates spurious spectral power"
-)
 def test_nonzero_decimal_constant_has_missing_spectral_features():
     features = spectral_features(np.full(300, 0.1), 300)
     assert all(np.isnan(value) for value in features.values())
