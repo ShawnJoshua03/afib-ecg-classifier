@@ -13,3 +13,4 @@ dist/
 *.log
 .coverage
 review-local/
+.venv-pinned/
