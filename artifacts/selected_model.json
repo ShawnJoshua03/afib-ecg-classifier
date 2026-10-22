@@ -38,8 +38,7 @@
     "template_correlation_median",
     "template_low_correlation_fraction"
   ],
-  "feature_schema_sha256": "310e40e12dd08574f1797bc2bde788ab2f33a8447dce595f138175b4e403206e",
-  "model_joblib_sha256": "b1ec22eb81ab252d8864fe0c200870015736272ffcd0c6b9217fb2c1ea2c3375",
+  "feature_schema_sha256": "3531faec43185b7e3ec497d59208190f67f4908b41c3f4339c21c6033576f772",
   "n_training_records": 6822,
   "parameters": {
     "class_weight": "balanced",
@@ -55,16 +54,15 @@
   "prediction_rule": "estimator argmax, no threshold tuning or calibration",
   "source_sha256": {
     "__init__.py": "9bdb910bd3626076347a33dfaf9d02601afc001650aaf9bdc3d779523230252e",
-    "data.py": "d875c4905fdbae9ad2ecfcd36089ba2098ec7ba6d2ec2fd0235ab210868c66d8",
-    "demo_data.py": "a786af8447de51b30056deb3e484e55b57750127781b9a581e96c1a91b98aa80",
+    "data.py": "67d79abef769b9bb77872c10c845001f700f35e893e7a380f3fab0779b1b2462",
+    "demo_data.py": "673dec390885033aca4880cc68688213bdfccd37edcc5e48ed4c2f97036a62b9",
     "download.py": "0f981cb0614b714e6700fbd5c56ae1d841105010fd98a9e2e9635683b1311fb8",
-    "features.py": "0a1641e8fa78ccd05682b52fe40bdd4ea4704b4d2fb98460c85827963d9e49e8",
+    "features.py": "64c4a0edfbb00db208c8b36d14346e305c3ec80411b66099bf4d351de6d4443d",
     "metrics.py": "400a26e8fd080712dafbc0e6ffd9fee17c79c12e388c257f282c9a86658d1fe9",
     "model.py": "10e2394c927e6181c29ea0dab7d6b5ca6d113133cfaa19443b44fc2a724dd6b2",
-    "signal.py": "18db5d90e64250a9ec9e5b6605841f613598b34346ee1d1273ff24b8df475b37",
+    "signal.py": "9342c133582d1256e4ca80f21330f6708bc3a827ede7d4f54f53560deec0d4cc",
     "train.py": "283fd01a52aef853a4e7540bf00ce03748ad2e77f3932f8457e5b9fb0a1cd683"
   },
-  "split_final_sha256": "24ff3d5e6e0f5c7585648ca9df27ab4d3a6c61cb267c59f2697cd11b3e75ebe1",
   "split_sha256": "b4e87d1ceff6b3509b7329864d4902d8b9e173444a05c84847188344cdf11867",
   "tuning_plan_sha256": "e2b0e20d577474218c243015d924d95973df65128415c464296882ac25d64ba8"
 }
