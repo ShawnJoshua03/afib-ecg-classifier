@@ -74,6 +74,8 @@ python -m afib.demo_data    # builds demo/public/demo_data.json
 pytest
 ```
 
+Retrain only inside a clean environment built from `requirements.txt`. Other scikit-learn or pandas versions can change which hyperparameter candidate cross-validation selects, and `afib.train` then refuses to overwrite the frozen held-out results.
+
 ## Limitations
 
 - **No documented patient IDs** in the inspected headers/reference labels, so the split is by record. Several recordings may come from the same
