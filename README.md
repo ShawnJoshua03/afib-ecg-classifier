@@ -1,9 +1,23 @@
+<div align="center">
+
 # ECG rhythm classifier (AFib)
 
-**[Portfolio](https://shawnjoshua03.github.io/)**
+**Classifies single-lead ECG recordings as Normal, AFib, Other rhythm or Noisy using classical machine learning.**
 
 [![CI](https://github.com/ShawnJoshua03/afib-ecg-classifier/actions/workflows/ci.yml/badge.svg)](https://github.com/ShawnJoshua03/afib-ecg-classifier/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikitlearn&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
 [![Live demo](https://img.shields.io/badge/demo-live-blue)](https://shawnjoshua03.github.io/afib-ecg-classifier/)
+[![Write-up](https://img.shields.io/badge/write--up-read-informational)](https://shawnjoshua03.github.io/stories/afib-ecg-classifier/)
+
+**[Live demo](https://shawnjoshua03.github.io/afib-ecg-classifier/)** | **[Write-up](https://shawnjoshua03.github.io/stories/afib-ecg-classifier/)** | **[Portfolio](https://shawnjoshua03.github.io/)**
+
+<a href="https://shawnjoshua03.github.io/afib-ecg-classifier/"><img src="https://shawnjoshua03.github.io/images/afib-ecg-classifier.jpg" alt="ECG rhythm explorer: the live demo page showing held-out results and per-recording predictions" width="800"></a>
+
+</div>
 
 Atrial fibrillation (AFib) is an irregular heart rhythm that raises stroke risk and often shows up as
 irregularly spaced heartbeats on an ECG. This project classifies single-lead ECG recordings from the
