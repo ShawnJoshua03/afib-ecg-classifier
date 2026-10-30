@@ -51,7 +51,7 @@ export default function ConfusionChart({ res }: { res: Results }) {
                     {m[i].map((v, j) => {
                       const r = total ? v / total : 0
                       return (
-                        <td key={j} className={i === j ? "cell diagonal" : "cell"} style={{ background: `color-mix(in srgb, var(--heat) ${Math.round(r * 100)}%, var(--paper))`, color: r > 0.5 ? "var(--paper)" : "var(--foreground)" }}>
+                        <td key={j} className={i === j ? "cell diagonal" : "cell"} style={{ background: `color-mix(in srgb, var(--heat) ${Math.round(r * 55)}%, var(--paper))`, color: "var(--foreground)" }}>
                           <span className="cell-count">{v}</span>
                           <span className="cell-rate">{pct(r)}</span>
                         </td>
