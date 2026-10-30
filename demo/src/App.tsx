@@ -45,6 +45,7 @@ export default function App() {
   const [dark, setDark] = useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches)
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark)
+    document.documentElement.dataset.theme = dark ? "dark" : "light"
   }, [dark])
   useEffect(() => {
     const get = (u: string) => fetch(u).then((r) => {
@@ -85,7 +86,7 @@ export default function App() {
     <main className="explorer">
       <header className="masthead">
         <div className="masthead-top">
-          <p className="eyebrow">Single-lead ECG · PhysioNet/CinC Challenge 2017 · classical ML</p>
+          <p className="eyebrow">Single-lead ECG, PhysioNet/CinC Challenge 2017, classical ML</p>
           <nav className="top-links" aria-label="Project links">
             <a href={REPO}>GitHub repo</a>
             <a href={`${REPO}#results`}>README results</a>
@@ -117,7 +118,7 @@ export default function App() {
           </div>
           <div className="stat">
             <dt>Held-out recordings</dt>
-            <dd>{res ? res.n_test.toLocaleString("en-US") : "…"}<span className="stat-unit"> · 4 classes</span></dd>
+            <dd>{res ? res.n_test.toLocaleString("en-US") : "…"}<span className="stat-unit"> in 4 classes</span></dd>
           </div>
         </dl>
         <p className="stat-note">
@@ -151,7 +152,7 @@ export default function App() {
                 {pos < 0 && <option value={rec.id}>{rec.id}</option>}
                 {list.map((r) => (
                   <option key={r.id} value={r.id}>
-                    {r.id} · ref {NAMES[r.true]}{r.correct ? "" : ` · model said ${NAMES[r.pred]}`}
+                    {r.id}, ref {NAMES[r.true]}{r.correct ? "" : `, model said ${NAMES[r.pred]}`}
                   </option>
                 ))}
               </select>
@@ -234,7 +235,7 @@ export default function App() {
           <li><span className="flow-n">4</span><strong>Boosted trees</strong><span>Class-balanced gradient boosting, chosen by 5-fold CV on training data only</span></li>
         </ol>
         <p className="how-links">
-          No deep learning. Details: <a href={`${REPO}#how-it-works`}>README</a> · <a href={`${REPO}/blob/main/FEATURES.md`}>FEATURES.md</a> · <a href={`${REPO}/blob/main/SPEC.md`}>frozen evaluation spec</a> · <a href={`${REPO}#limitations`}>limitations</a>
+          No deep learning. Details: <a href={`${REPO}#how-it-works`}>README</a>, <a href={`${REPO}/blob/main/FEATURES.md`}>FEATURES.md</a>, <a href={`${REPO}/blob/main/SPEC.md`}>frozen evaluation spec</a> and <a href={`${REPO}#limitations`}>limitations</a>
         </p>
       </section>
 
@@ -248,7 +249,7 @@ export default function App() {
       <footer>
         <p className="disclaimer footer-disclaimer"><strong>Not a medical device.</strong> No clinical validation; not for clinical use. The curated recordings are a demonstration, not an evaluation.</p>
         <p>
-          <a href={REPO}>Source on GitHub</a> · Data: PhysioNet/CinC Challenge 2017 (ODC-By) · Recording IDs are the challenge's own.
+          <a href={REPO}>Source on GitHub</a>. Data: PhysioNet/CinC Challenge 2017 (ODC-By). Recording IDs are the challenge’s own.
         </p>
       </footer>
     </main>
